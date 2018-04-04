@@ -2,62 +2,52 @@
     <h1>{{foto.titulo}}</h1>
 </div>
 
+<!--se há uma mensagem definida em $scope.mensagem mostra o erro-->
 <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
-
-<!-- usa formulario.$submitted para validar apenas quando for submetido -->
 
 <form novalidate name="formulario" class="row" ng-submit="submeter()">
     <div class="col-md-6">
         <div class="form-group">
             <label>Título</label>
-            <input name="titulo" class="form-control" 
-                ng-model="foto.titulo"
-                ng-maxlength="20" required>
-            <span ng-show="formulario.$submitted && formulario.titulo.$error.required" class="form-control alert-danger">
-                Título obrigatório
-            </span>
-            <span ng-show="formulario.$submitted && formulario.titulo.$error.maxlength" class="form-control alert-danger">
-                No máximo 20 caracteres!
-            </span>
-                
+            <input ng-model="foto.titulo" name="titulo" class="form-control" required ng-maxlength="20">
+
+            <!-- Exibe erro caso campo não preenchido-->
+            <span ng-show="formulario.$submitted && formulario.titulo.$error.required" class="form-control alert-danger">Título obrigatório</span>
+            <!-- Exibe erro caso campo com mais de 20 caracteres-->
+            <span ng-show="formulario.$submitted && formulario.titulo.$error.maxlength" class="form-control alert-danger">Deve ter, no máximo, 20 caractéres</span>
+
         </div>
         <div class="form-group">
             <label>URL</label>
-            <input name="url" class="form-control" 
-                ng-model="foto.url"
-                required>
-            <span ng-show="formulario.$submitted && formulario.url.$error.required" class="form-control alert-danger">
-               URL obrigatória
-            </span>
+            <input ng-model="foto.url" name="url" class="form-control" required>
+            <span ng-show="formulario.$submitted && formulario.url.$error.required" class="form-control alert-danger">URL obrigatória</span>
+
         </div>
         <div class="form-group">
             <label>Descrição</label>
-            <textarea name="descricao" class="form-control" 
-                ng-model="foto.descricao">
-                {{foto.descricao}}
+            <textarea ng-model="foto.descricao" name="descricao" class="form-control">
             </textarea>
-            
-        </div>
-        <div class="form-group">
-            <label>Grupo</label>
-            <select name="grupo" 
-                    ng-model="foto.grupo" ng-controller="GrupoController"
-                    ng-options="grupo._id as grupo.nome for grupo in grupos" 
-                    class="form-control" required>
-                <option value="">Escolha um grupo</option>
-            </select>
-            <span ng-show="formulario.$submitted && formulario.grupo.$error.required" class="form-control alert-danger">
-                Grupo obrigatório
-            </span>
         </div>
 
-        <button type="submit" class="btn btn-primary" ng-disable="formulario.$invalid">
+        <div class="form-group">
+            <label>Grupo</label>
+
+            <!--a sintaxe grupo._id as grupo.nome indica que o valor do elemento será o ID do grupo e o valor exibido será seu título. O trecho for grupo in grupos percorrerá a lista de grupos disponibilizada no controller, construindo cada item de nossa lista.-->
+
+            <select required ng-controller="GruposController" ng-model="foto.grupo" ng-options="grupo._id as (grupo.nome) for grupo in grupos" name="grupo" class="form-control text-capitalize">
+                <option value="">Selecione Grupo</option>
+            </select>
+
+            <span ng-show="formulario.$submitted && formulario.grupo.$error.required" class="form-control alert-danger">Grupo obrigatório</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" ng-disabled="formulario.$invalid">
             Salvar
         </button>
-         <a href="/" class="btn btn-primary">Voltar</a>
+        <a href="/" class="btn btn-primary" meu-focus>Voltar</a>
         <hr>
     </div>
     <div class="col-md-6">
-        <my-picture url="{{foto.url}}"></my-picture>
+        <minha-foto url="{{foto.url}}" titulo="{{foto.titulo}}"></minha-foto>
     </div>
 </form>

@@ -1,0 +1,47 @@
+.painel-animado.ng-leave.ng-leave-active {
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+}
+
+.painel-animado.ng-enter {
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+}
+
+.painel-animado.ng-enter.ng-enter-active {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.painel-animado {
+    -webkit-transition: 0.8s linear all;
+    transition: 0.8s linear all;
+}
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-line-pack: end;
+    align-content: flex-end;
+}
+
+.panel {
+    margin-top: 20px;
+}
+
+.espaco-imagens {
+    margin-bottom: 10px;
+}
+
+.margem-botoes {
+    margin-top: 5px;
+}
+
+.estilo {
+    font-size: 20px;
+}
